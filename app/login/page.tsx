@@ -9,9 +9,14 @@ export default function Page() {
   const [errorMessage, setErrorMessage] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const signIn = async () => {
+    // Start loading
+    setIsLoading(true);
+    setErrorMessage('');
+
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -23,6 +28,9 @@ export default function Page() {
     } else {
       router.replace('/');
     }
+
+    //Stops loading
+    setIsLoading(false);
   };
 
   const formSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -32,7 +40,7 @@ export default function Page() {
 
   return (
     <main className='bg-gray-50 w-screen h-screen flex items-center justify-center'>
-      <div className='w-4/5 md:w-3/5 flex flex-col gap-6'>
+      <div className='w-4/5 md:w-6/12 flex flex-col gap-6'>
         <h1 className='block text-2xl font-bold text-center text-gray-800'>
           Login Page
         </h1>
@@ -60,15 +68,18 @@ export default function Page() {
           </label>
         </form>
         <button
-          className='w-full py-3 px-4 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600'
+          className='disabled:bg-slate-300 w-full py-3 px-4 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600'
           onClick={signIn}
+          disabled={isLoading}
         >
           Sign In
         </button>
+        {errorMessage && (
+          <div className='text-red-600 font-bold text-center'>
+            {errorMessage}
+          </div>
+        )}
       </div>
-      {errorMessage && (
-        <div className='text-red-600 font-bold'>{errorMessage}</div>
-      )}
     </main>
   );
 }
