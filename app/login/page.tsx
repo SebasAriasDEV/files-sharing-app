@@ -47,6 +47,7 @@ export default function Page() {
         <form
           className='flex flex-col border p-10 rounded-md bg-white'
           onSubmit={formSubmit}
+          autoComplete='on'
         >
           <label className='flex flex-col gap-2 mb-2'>
             <span>Email:</span>
@@ -55,6 +56,7 @@ export default function Page() {
               type='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              autoComplete='on'
             />
           </label>
           <label className='flex flex-col gap-2 mb-2'>
