@@ -31,34 +31,41 @@ export default function Page() {
   };
 
   return (
-    <main className='w-screen h-screen flex flex-col justify-center items-center'>
-      <h1 className='text-2xl font-bold mb-3'>Login Page</h1>
-      <form className='flex flex-col border p-4 rounded' onSubmit={formSubmit}>
-        <label className='flex flex-col gap-2 mb-2'>
-          <span>Email:</span>
-          <input
-            className='bg-slate-100 rounded p-3'
-            type='email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <label className='flex flex-col gap-2 mb-2'>
-          <span>Password:</span>
-          <input
-            className='bg-slate-100 rounded p-3'
-            type='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-      </form>
-      <button
-        className='mt-3 bg-slate-700 text-white rounded py-1 px-3'
-        onClick={signIn}
-      >
-        Sign In
-      </button>
+    <main className='bg-gray-50 w-screen h-screen flex items-center justify-center'>
+      <div className='w-4/5 md:w-3/5 flex flex-col gap-6'>
+        <h1 className='block text-2xl font-bold text-center text-gray-800'>
+          Login Page
+        </h1>
+        <form
+          className='flex flex-col border p-10 rounded-md bg-white'
+          onSubmit={formSubmit}
+        >
+          <label className='flex flex-col gap-2 mb-2'>
+            <span>Email:</span>
+            <input
+              className='py-3 px-4 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500'
+              type='email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
+          <label className='flex flex-col gap-2 mb-2'>
+            <span>Password:</span>
+            <input
+              className='py-3 px-4 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500'
+              type='password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+        </form>
+        <button
+          className='w-full py-3 px-4 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600'
+          onClick={signIn}
+        >
+          Sign In
+        </button>
+      </div>
       {errorMessage && (
         <div className='text-red-600 font-bold'>{errorMessage}</div>
       )}
