@@ -1,0 +1,24 @@
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
+import LogoutButton from '../components/LogoutButton';
+
+//Revalidate
+export const revalidate = 0;
+
+export default async function Home() {
+  const supabase = createServerComponentClient({ cookies });
+  
+  const { data, error } = await supabase.auth.getUser();
+
+  if (!data.user) {
+    redirect('/login');
+  }
+
+  return (
+    <main>
+      Whiteboard
+    </main>
+  );
+}
+
