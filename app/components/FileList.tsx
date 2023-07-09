@@ -15,13 +15,6 @@ export default function FileList({ files, userId }: Props) {
   const supabase = createClientComponentClient();
   const [fileList, setFileList] = useState(files);
 
-  const deleteFile = async (path: string) => {
-    const { data, error } = await supabase.storage.from('files').remove([path]);
-    if (error) {
-      console.log(error);
-    }
-  };
-
   const downloadFile = async (path: string) => {
     const { data, error } = await supabase.storage.from('files').download(path);
     if (error) {
@@ -68,7 +61,6 @@ export default function FileList({ files, userId }: Props) {
         <FileItem
           key={file.id}
           file={file}
-          onDelete={() => deleteFile(`${userId}/${file.name}`)}
           onDownload={() => downloadFile(`${userId}/${file.name}`)}
           path={`${userId}/${file.name}`}
         />

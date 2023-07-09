@@ -2,15 +2,15 @@ import { type FileObject } from '@supabase/storage-js';
 import DownloadIcon from './icons/DownloadIcon';
 import { DeleteIcon } from './icons/DeleteIcon';
 import ShareFileButton from './ShareFileButton';
+import DeleteItemButton from './DeleteItemButton';
 
 type Props = {
   onDownload: () => void;
-  onDelete: () => void;
   file: FileObject;
   path: string;
 };
 
-export default function FileItem({ file, onDelete, onDownload, path }: Props) {
+export default function FileItem({ file, onDownload, path }: Props) {
   return (
     <div
       className={
@@ -31,12 +31,7 @@ export default function FileItem({ file, onDelete, onDownload, path }: Props) {
       >
         <DownloadIcon />
       </div>
-      <div
-        className='px-1 invisible group-hover:visible hover:text-red-800'
-        onClick={onDelete}
-      >
-        <DeleteIcon />
-      </div>
+      <DeleteItemButton path={path} />
     </div>
   );
 }
