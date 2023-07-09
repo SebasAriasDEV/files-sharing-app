@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -25,8 +26,12 @@ export default function ShareFileButton({ file, className }: Props) {
             Share file "<code>{file.name}</code>" by choosing expire time below
             and generating a URL.
           </DialogDescription>
+          <div>
+            hola
+            hola hola
+          </div>
           <DialogFooter>
-            <button>Get URL</button>
+            <Button>Get URL</Button>
           </DialogFooter>
         </DialogHeader>
       </DialogContent>
