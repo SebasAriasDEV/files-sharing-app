@@ -70,6 +70,7 @@ export default function FileList({ files, userId }: Props) {
           file={file}
           onDelete={() => deleteFile(`${userId}/${file.name}`)}
           onDownload={() => downloadFile(`${userId}/${file.name}`)}
+          path={`${userId}/${file.name}`}
         />
       ))}
     </div>
