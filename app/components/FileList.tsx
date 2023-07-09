@@ -2,7 +2,7 @@
 
 import { type FileObject } from '@supabase/storage-js';
 import FileItem from './FileItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { split } from 'postcss/lib/list';
 
@@ -34,6 +34,33 @@ export default function FileList({ files, userId }: Props) {
     a.download = path.split('/').slice(-1)[0];
     a.click();
   };
+
+  const realoadFiles = async () => {
+    const { data, error } = await supabase.storage.from('files').list(userId);
+    if (data) {
+      setFileList(data);
+    }
+  };
+
+  useEffect(() => {
+    const channel = supabase
+      .channel('channel')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'storage', table: 'objects' },
+        (payload) => {
+          console.log(payload);
+          realoadFiles();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      console.log('Unsibscribed!!');
+
+      supabase.removeChannel(channel);
+    };
+  }, [userId]);
 
   return (
     <div className='mt-4'>
