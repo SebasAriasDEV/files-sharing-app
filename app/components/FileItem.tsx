@@ -1,6 +1,7 @@
 import { type FileObject } from '@supabase/storage-js';
 import DownloadIcon from './icons/DownloadIcon';
 import { DeleteIcon } from './icons/DeleteIcon';
+import ShareFileButton from './ShareFileButton';
 
 type Props = {
   onDownload: () => void;
@@ -18,6 +19,7 @@ export default function FileItem({ file, onDelete, onDownload }: Props) {
     >
       <div className='text-slate-900'>{file.name}</div>
       <div className='flex-1'></div>
+      <ShareFileButton file={file} className='invisible group-hover:visible'/>
       <div
         className='px-2 invisible group-hover:visible hover:text-blue-800'
         onClick={onDownload}
